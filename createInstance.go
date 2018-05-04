@@ -17,23 +17,23 @@ import (
 	ec2 "github.com/aws/aws-sdk-go/service/ec2"
 )
 
-var ami string    // enter the ami id that you want to use
-var size string   // enter the instance size that you wish to use
-var sshkey string // enter name of the ssh-key you wish to use
-var subnet string // enter subnet id that you want to use for instance
-var tagName string
-var tagEnv string
-var tagApp string
-var tagCat string
+var ami string     // enter the ami id that you want to use
+var size string    // enter the instance size that you wish to use
+var sshkey string  // enter name of the ssh-key you wish to use
+var subnet string  // enter subnet id that you want to use for instance
+var tagName string // enter tag Name value
+var tagEnv string  // enter tag environment value prod or staging
+var tagApp string  // enter tag app name value
+var tagCat string  // enter tag category value
 
 var reader = bufio.NewReader(os.Stdin) // reader for user input from Stdin
 
 const inputdelimiter = '\n' // newline delimiter
 
-// patching flag called
+// when patching flag "-p" is called this section will run with only input needed is ami.
 func patching() {
 	now := time.Now()
-	t, _ := strftime.Format("%Y-%m-%d", now)
+	t, _ := strftime.Format("%Y-%m-%d", now) // YYYY-MM-DD
 
 	fmt.Print("Please enter ami: ")
 	// section for user input from stdin. TO DO clean up to simplify
@@ -42,7 +42,7 @@ func patching() {
 		fmt.Println(err)
 		return
 	}
-	ami = strings.Replace(ami, "\n", "", -1)
+	ami = strings.Replace(ami, "\n", "", -1) //converts input
 
 	svc := ec2.New(session.New(&aws.Config{Region: aws.String("us-east-1")}))
 	// Specify the details of the instance that you want to create.
@@ -67,13 +67,13 @@ func patching() {
 	}
 
 	log.Println("Created instance", *runResult.Instances[0].InstanceId)
-
+	// gets username from os
 	currentUser, err := user.Current()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	user := currentUser.Username
+	user := currentUser.Username //user var is set to username
 
 	user = strings.Replace(user, "\n", "", -1)
 	tagName = user
