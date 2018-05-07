@@ -128,7 +128,7 @@ func main() {
 	if *options == true {
 		patching()
 	} else {
-
+		// TODO: Figure out how to simplify this very repetitive section...
 		fmt.Print("Please enter ami: ")
 		// section for user input from stdin. TO DO clean up to simplify
 		ami, err := reader.ReadString(inputdelimiter)
@@ -166,7 +166,7 @@ func main() {
 			return
 		}
 		subnet = strings.Replace(subnet, "\n", "", -1)
-
+		// Set up aws config
 		svc := ec2.New(session.New(&aws.Config{Region: aws.String("HARDCODE_REGION")}))
 		// Specify the details of the instance that you want to create.
 		runResult, err := svc.RunInstances(&ec2.RunInstancesInput{
@@ -198,6 +198,7 @@ func main() {
 			fmt.Println(err)
 			return
 		}
+		// Again very repetitive
 		tagName = strings.Replace(tagName, "\n", "", -1)
 
 		fmt.Print("Please enter app tag: ")
