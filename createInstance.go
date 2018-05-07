@@ -17,14 +17,14 @@ import (
 	ec2 "github.com/aws/aws-sdk-go/service/ec2"
 )
 
-var ami string    // enter the ami id that you want to use
-var size string   // enter the instance size that you wish to use
-var sshkey string // enter name of the ssh-key you wish to use
-var subnet string // enter subnet id that you want to use for instance
-var tagName string
-var tagEnv string
-var tagApp string
-var tagCat string
+var ami string    	// enter the ami id that you want to use
+var size string   	// enter the instance size that you wish to use
+var sshkey string 	// enter name of the ssh-key you wish to use
+var subnet string 	// enter subnet id that you want to use for instance
+var tagName string	// enter value for tag keyname 
+var tagEnv string	// ""	
+var tagApp string	// ""
+var tagCat string	// ""
 
 var reader = bufio.NewReader(os.Stdin) // reader for user input from Stdin
 
@@ -44,17 +44,17 @@ func patching() {
 	}
 	ami = strings.Replace(ami, "\n", "", -1)
 
-	svc := ec2.New(session.New(&aws.Config{Region: aws.String("us-east-1")}))
+	svc := ec2.New(session.New(&aws.Config{Region: aws.String("HARDCODE_REGION")}))
 	// Specify the details of the instance that you want to create.
 	runResult, err := svc.RunInstances(&ec2.RunInstancesInput{
 		// An Amazon Linux AMI ID for t2.micro instances in the us-east-1 region
 		ImageId:      aws.String(ami),
-		InstanceType: aws.String("t2.micro"),
-		KeyName:      aws.String("adh-devops"),
-		SubnetId:     aws.String("subnet-401ff919"),
+		InstanceType: aws.String("HARCODE_INSTANCE_TYPE"),
+		KeyName:      aws.String("HARDCODE_KEYNAME"),
+		SubnetId:     aws.String("HARDCODE_SUBNET"),
 		SecurityGroupIds: []*string{
-			aws.String("sg-c2f9a2a7"),
-			aws.String("sg-8e9dd0eb"),
+			aws.String("HARDCODE_SECURITY_GROUP"),
+			aws.String("HARDCODE_SECURITY_GROUP"),
 		},
 		//SecurityGroups: []*string{},
 		MinCount: aws.Int64(1),
@@ -167,7 +167,7 @@ func main() {
 		}
 		subnet = strings.Replace(subnet, "\n", "", -1)
 
-		svc := ec2.New(session.New(&aws.Config{Region: aws.String("us-east-1")}))
+		svc := ec2.New(session.New(&aws.Config{Region: aws.String("HARDCODE_REGION")}))
 		// Specify the details of the instance that you want to create.
 		runResult, err := svc.RunInstances(&ec2.RunInstancesInput{
 			// An Amazon Linux AMI ID for t2.micro instances in the us-east-1 region
@@ -176,8 +176,8 @@ func main() {
 			KeyName:      aws.String(sshkey),
 			SubnetId:     aws.String(subnet),
 			SecurityGroupIds: []*string{
-				aws.String("sg-c2f9a2a7"),
-				aws.String("sg-8e9dd0eb"),
+				aws.String("HARDCODE_SECURITY_GROUP"),
+				aws.String("HARDCODE_SECURITY_GROUP"),
 			},
 			//SecurityGroups: []*string{},
 			MinCount: aws.Int64(1),
