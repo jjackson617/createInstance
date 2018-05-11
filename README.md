@@ -1,3 +1,8 @@
+***WORK IN PROGRESS*** 
+
+Will run as is, but continually adding more and cleaning things up to make it look prettier.
+
+
 createInstance creates an instance on AWS ec2.
 
 Script will prompt for user input for ami, instance type, subnet, sshkey name, and tag unless -p is specified. 
