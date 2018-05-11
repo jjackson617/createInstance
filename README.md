@@ -1,6 +1,6 @@
 ***WORK IN PROGRESS*** 
 
-Will run as is, but continually adding more and cleaning things up to make it look prettier.
+Will run as is, but continually adding more and making tidy to make it look prettier.
 
 
 createInstance creates an instance on AWS ec2.
