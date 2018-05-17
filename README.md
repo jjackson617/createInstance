@@ -1,6 +1,9 @@
 ***WORK IN PROGRESS*** 
 
+***NEW BRANCH CREATED!!!*** Breaking down into smaller go files for better management.
+
 Will run as is, but continually adding more and making tidy to make it look prettier.
+
 
 
 createInstance creates an instance on AWS ec2.
